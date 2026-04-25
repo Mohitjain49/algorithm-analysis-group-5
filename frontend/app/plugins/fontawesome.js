@@ -6,7 +6,7 @@ import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
 config.autoAddCss = false;
-library.add(fas, faGithub); // Adds ALL the solid and brand font awesome icons.
+library.add(fas, faGithub);
 
 export default defineNuxtPlugin((nuxtApp) => {
     nuxtApp.vueApp.component('font-awesome-icon', FontAwesomeIcon);

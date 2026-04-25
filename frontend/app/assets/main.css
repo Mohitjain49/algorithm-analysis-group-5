@@ -1,0 +1,56 @@
+:root {
+    --green-1: rgb(0, 125, 0);
+    --green-2: rgb(144, 255, 144);
+    --green-3: #6BBF59;
+    --green-4: #21D375;
+    --green-5: #073B38;
+
+    --orange-1: #FF9100;
+    --orange-2: #FF7900;
+    --orange-3: #FF6000;
+    --orange-4: #FF4800;
+    --orange-5: #EA4200;
+
+    --empty-border: 2px solid rgba(0, 0, 0, 0);
+    --thin-empty-border: 1px solid rgba(0, 0, 0, 0);
+    --default-transition: border 0.2s, color 0.2s, background-color 0.2s, box-shadow 0.2s, scale 0.2s;
+}
+
+a, button {
+    all: unset;
+    cursor: pointer;
+}
+html {
+    scroll-behavior: smooth;
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    position: relative;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    width: 100%;
+    min-width: 350px;
+    margin: 0px;
+    padding: 0px;
+    overflow: hidden;
+}
+.tictactoe-ui {
+    position: relative;
+    top: 0px;
+    left: 0px;
+    height: 100vh;
+    width: 100%;
+    min-width: 350px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: transparent;
+    z-index: 10;
+}
+
+@media (max-width: 350px) {
+    body { overflow-x: auto; }
+}

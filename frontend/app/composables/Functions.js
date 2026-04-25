@@ -21,20 +21,6 @@ export async function sleep(ms) {
 }
 
 /**
- * This function reloads the website.
- */
-export function reloadPage() {
-    window.location.reload();
-}
-
-/**
- * This function returns whether or not the app is rendering on the server or not.
- */
-export function checkSSR() {
-    return import.meta.server;
-}
-
-/**
  * This function cuts a string to ensure it has the max length of characters.
  */
 export function truncate(str = "", maxLength = 80) {
@@ -45,6 +31,6 @@ export function truncate(str = "", maxLength = 80) {
  * This sets the color and border color of an icon.
  * @param {String} color The color to use.
  */
-export function getColorStyles(color = "var(--website-text)") {
+export function getColorStyles(color = "var(--green-1)") {
     return { color, borderColor: color }
 }
