@@ -23,6 +23,12 @@ export default defineNuxtConfig({
             { name: "Poppins", provider: "fontsource" }
         ]
     },
+    nitro: {
+        output: {
+            dir: ".output",
+            publicDir: '.output/public'
+        }
+    },
     experimental: { payloadExtraction: 'client' },
     vite: { plugins: [Info()] }
 })
