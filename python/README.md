@@ -13,3 +13,5 @@ Board Layout:
 6-7-8
 
 for example 4 is the center.
+
+To add a front we need a flask api.
