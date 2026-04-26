@@ -14,4 +14,4 @@ Board Layout:
 
 for example 4 is the center.
 
-To add a front we need a flask api.
+To add a frontend we need a flask api.
