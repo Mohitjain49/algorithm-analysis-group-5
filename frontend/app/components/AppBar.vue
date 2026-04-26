@@ -3,28 +3,50 @@
 </style>
 
 <template>
-<nav id="tictactoe-app-bar">
+<nav id="tictactoe-app-bar" ref="tictactoe-app-bar">
     <div class="app-bar-section">
-        <button class="tictactoe-app-option" @click="appStore.setGameStatus((appStore.gameStatus == 0) ? 1 : 0)" :title="playButtonTitle">
+        <button class="tictactoe-app-option" @click="appStore.setGameStatus((appStore.gameStatus == 0) ? 1 : 0)" :title="playButtonTitle" pulse-loop>
             <FontAwesomeIcon :icon="((appStore.gameStatus == 0) ? 'fa-play' : 'fa-stop')" />
+        </button>
+        <button class="tictactoe-app-option orange" @click="reloadApp()" title="Reload App" pulse-loop>
+            <FontAwesomeIcon icon="fa-rotate-right" :spin="reloadButtonClicked" />
         </button>
     </div>
 
     <div class="app-bar-section">
-        <button class="tictactoe-app-option orange" @click="reloadApp()" title="Reload App">
-            <FontAwesomeIcon icon="fa-rotate-right" :spin="reloadButtonClicked" />
-        </button>
-        <a class="tictactoe-app-option white" :href="PROJECT_GITHUB_LINK" target="tictactoe-project-github" title="Project GitHub">
+        <RouterLink class="tictactoe-app-option orange" to="/#version" title="See App Version" pulse-loop>
+            <FontAwesomeIcon icon="fa-brands fa-git-alt" />
+        </RouterLink>
+        <a class="tictactoe-app-option white" :href="PROJECT_GITHUB_LINK" target="tictactoe-project-github" title="Project GitHub" pulse-loop>
             <FontAwesomeIcon icon="fa-brands fa-github" />
         </a>
     </div>
 </nav>
+
+<div v-if="showVersionPopup" class="webpage-cover tictactoe-versionCover">
+    <div id="version" class="tictactoe-versionBox animate__animated animate__bounceIn">
+        <h2 class="tictactoe-versionBox-text version"> {{ APP_VERSION }} </h2>
+        <h2 class="tictactoe-versionBox-text"> {{ APP_RELEASE.date }} </h2>
+        <h2 class="tictactoe-versionBox-text small"> {{ APP_RELEASE.time }} </h2>
+
+        <RouterLink to="/" class="tictactoe-versionBox-closeBtn" title="Hide App Version">
+            <FontAwesomeIcon icon="fa-xmark" />
+        </RouterLink>
+    </div>
+</div>
 </template>
 
 <script setup>
 const appStore = useAppStore();
+const router = useRouter();
+const { num: APP_VERSION, release: APP_RELEASE } = useAppVersion();
+
+const appBarRef = useTemplateRef('tictactoe-app-bar');
+usePulseLoopAnimation(appBarRef);
+
 const reloadButtonClicked = ref(false);
 const playButtonTitle = computed(() => { return ((appStore.gameStatus == 0) ? "Play A Game!" : "Stop Playing.") });
+const showVersionPopup = computed(() => { return (router.currentRoute.value.hash === "#version"); });
 
 /** This function reloads the web application. */
 function reloadApp() {

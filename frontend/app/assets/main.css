@@ -1,3 +1,5 @@
+@import "animate.css"; /* This website uses the "animate.css" dependency (https://animate.style/) */
+
 :root {
     --green-1: rgb(0, 125, 0);
     --green-2: rgb(144, 255, 144);
@@ -49,6 +51,20 @@ body {
     align-items: center;
     background: transparent;
     z-index: 10;
+}
+
+.webpage-cover {
+    margin: 0;
+    padding: 0;
+    position: fixed;
+    height: auto;
+    min-height: 100%;
+    width: 100%;
+    min-width: 350px;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    background-color: rgba(0, 0, 0, 0.85);
 }
 
 @media (max-width: 350px) {

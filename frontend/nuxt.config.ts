@@ -18,5 +18,11 @@ export default defineNuxtConfig({
             })
         }
     ],
+    fonts: {
+        families: [
+            { name: "Poppins", provider: "fontsource" }
+        ]
+    },
+    experimental: { payloadExtraction: 'client' },
     vite: { plugins: [Info()] }
 })
