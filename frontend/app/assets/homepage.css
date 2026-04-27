@@ -19,21 +19,34 @@
     grid-template-rows: repeat(3, 1fr);
 }
 
-.tictactoe-box .item {
+.tictactoe-tile {
+    width: auto;
+    height: auto;
     border: 1px solid white;
+    background-color: transparent;
     display: flex;
     align-items: center;
     justify-content: center;
 }
+.tictactoe-tile.highlight {
+    background-color: rgba(128, 128, 128, 0.75) !important;
+}
+.tictactoe-tile svg {
+    color: white;
+    font-size: 90px;
+}
 
-.tictactoe-box .item:nth-child(3n) { border-right: none; }
-.tictactoe-box .item:nth-child(3n - 2) { border-left: none; }
-.tictactoe-box .item:nth-child(-n + 3) { border-top: none; }
-.tictactoe-box .item:nth-last-child(-n + 3) { border-bottom: none; }
+.tictactoe-tile:nth-child(3n) { border-right: none; }
+.tictactoe-tile:nth-child(3n - 2) { border-left: none; }
+.tictactoe-tile:nth-child(-n + 3) { border-top: none; }
+.tictactoe-tile:nth-last-child(-n + 3) { border-bottom: none; }
 
 @media (max-width: 600px) {
     .tictactoe-box {
         width: 325px;
         height: 325px;
+    }
+    .tictactoe-tile svg {
+        font-size: 55px;
     }
 }

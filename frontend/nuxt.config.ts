@@ -1,5 +1,4 @@
 import { addComponent } from "@nuxt/kit";
-import Info from "unplugin-info/vite";
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
@@ -9,7 +8,7 @@ export default defineNuxtConfig({
     devServer: { port: 5075, host: "localhost" },
     ssr: false,
     modules: [
-        '@pinia/nuxt', '@nuxt/fonts', '@vueuse/nuxt',
+        '@pinia/nuxt', '@nuxt/fonts', '@vueuse/nuxt', 'unplugin-info/nuxt',
         (_, nuxt) => {
             addComponent({
                 name: 'FontAwesomeIcon',
@@ -29,6 +28,5 @@ export default defineNuxtConfig({
             publicDir: '.output/public'
         }
     },
-    experimental: { payloadExtraction: 'client' },
-    vite: { plugins: [Info()] }
+    experimental: { payloadExtraction: 'client' }
 })
