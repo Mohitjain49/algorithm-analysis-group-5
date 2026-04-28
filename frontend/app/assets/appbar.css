@@ -1,0 +1,160 @@
+#tictactoe-app-bar {
+    position: fixed;
+    top: 10px;
+    left: calc(50% - 156px);
+    width: 300px;
+    height: 30px;
+    padding: 2px 5px;
+    background-color: var(--green-5);
+    border: 1px solid white;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+    z-index: 100;
+}
+.app-bar-section {
+    height: 100%;
+    width: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    gap: 5px;
+    color: inherit;
+}
+
+.tictactoe-app-option {
+    width: 24px;
+    height: 24px;
+    border: 1px solid var(--green-3);
+    border-radius: 40%;
+    color: var(--green-3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: var(--default-transition);
+}
+.tictactoe-app-option:hover {
+    scale: 1.05;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.tictactoe-app-option.white {
+    color: white;
+    border-color: white;
+}
+.tictactoe-app-option.orange-light {
+    color: var(--orange-1);
+    border-color: var(--orange-1);
+}
+.tictactoe-app-option.orange {
+    color: var(--orange-5);
+    border-color: var(--orange-5);
+}
+.tictactoe-app-option svg {
+    height: 14px;
+    width: 14px;
+}
+
+@media (max-width: 350px) {
+    #tictactoe-app-bar {
+        position: absolute;
+        left: 19px;
+    }
+}
+
+/* These styles are for the version popup. */
+
+.webpage-cover.tictactoe-versionCover {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.tictactoe-versionBox {
+    position: relative;
+    height: fit-content;
+    width: fit-content;
+    margin: 0px auto;
+    margin-bottom: 10px;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: black;
+    box-shadow: 0px 0px 20px 5px white;
+    border-radius: 25px;
+}
+.tictactoe-versionBox-text {
+    width: fit-content;
+    height: fit-content;
+    font-size: 20px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+    color: inherit;
+    margin-top: 3px;
+    margin-bottom: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    color: var(--green-2);
+}
+
+.tictactoe-versionBox-text.small {
+    font-size: 14px;
+    margin-top: 0px;
+}
+.tictactoe-versionBox-text.version {
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+.tictactoe-popupBox-buttons {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.tictactoe-versionBox-closeBtn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    border: 2px solid white;
+    border-radius: 50%;
+    height: 25px;
+    width: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(17, 1, 58);
+    transition: var(--default-transition), scale 0.2s;
+}
+.tictactoe-versionBox-closeBtn svg {
+    color: red;
+    width: 15px;
+    height: 15px;
+}
+.tictactoe-versionBox-closeBtn:hover {
+    box-shadow: 0px 0px 5px 0px white;
+    scale: 1.1;
+}
+
+@media (max-width: 450px) {
+    .tictactoe-versionBox {
+        padding: 12px;
+        box-shadow: 0px 0px 10px 2px white;
+    }
+
+    .tictactoe-versionBox-text { font-size: 18px; }
+    .tictactoe-versionBox-text.small { font-size: 12px; }
+}

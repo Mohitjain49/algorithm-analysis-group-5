@@ -1,0 +1,50 @@
+name: Build and Deploy Project to AWS.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: ./frontend
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24.3.0' # Set this to your Node.js version
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Deploy to AWS S3 and CloudFront with Custom Script
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_CLOUDFRONT_DIST_ID: ${{ secrets.CLOUDFRONT_DISTRIBUTION_WEBSITE_ID }}
+          AWS_BUCKET: ${{ 'cs-4306-tictactoc-project ' }}
+          AWS_REGION: ${{ 'us-east-1' }}
+          BUILD_OUTPUT: ${{ '.output/public' }}
+        run: npm run deploy
+
+    #   - name: Deploy Bundles To GitHub Pages
+    #     uses: JamesIves/github-pages-deploy-action@v4
+    #     with:
+    #       branch: gh-pages
+    #       folder: bundle-visualizer
+    #       clean: true
+    #       clean-exclude: |
+    #         README.md
+
