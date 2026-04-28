@@ -34,7 +34,7 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_CLOUDFRONT_DIST_ID: ${{ secrets.CLOUDFRONT_DISTRIBUTION_WEBSITE_ID }}
-          AWS_BUCKET: ${{ 'cs-4306-tictactoc-project ' }}
+          AWS_BUCKET: ${{ 'cs-4306-tictactoe-project' }}
           AWS_REGION: ${{ 'us-east-1' }}
           BUILD_OUTPUT: ${{ '.output/public' }}
         run: npm run deploy
