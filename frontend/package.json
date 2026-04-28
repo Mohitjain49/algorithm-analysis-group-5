@@ -13,6 +13,7 @@
         "open:build": "npm run build && npx serve .output/public",
         "update": "npx npm-check-updates",
         "upgrade": "node scripts/upgrade.mjs",
+        "deploy": "node scripts/deploy.mjs",
         "upgrade:nuxt": "npx nuxt upgrade"
     },
     "dependencies": {
