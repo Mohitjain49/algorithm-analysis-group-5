@@ -65,13 +65,21 @@
     }
 }
 
-/* These styles are for the version popup. */
+/* These styles are for the version and settings popups. */
 
 .webpage-cover.tictactoe-versionCover {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    z-index: 1250;
+}
+.webpage-cover.tictactoe-settingsCover {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 400;
 }
 
 .tictactoe-versionBox {
@@ -103,6 +111,13 @@
     align-items: center;
     flex-direction: row;
     color: var(--green-2);
+}
+.tictactoe-versionBox .radio-input {
+    width: 250px;
+    color: var(--orange-2);
+    height: 25px;
+    font-size: 17px;
+    font-family: 'Poppins', sans-serif;
 }
 
 .tictactoe-versionBox-text.small {

@@ -1,14 +1,5 @@
-"""
-algorithms.py — Minimax implementation.
-
-Fully instrumented:
-  - node_count: total recursive calls made
-
-Returns a MoveResult dataclass containing the chosen move index,
-its score, and all instrumentation data.
-"""
-
 from dataclasses import dataclass, field
+from typing import Optional
 import time
 
 from game import (
@@ -16,6 +7,8 @@ from game import (
     apply_move,
     is_terminal,
     terminal_score,
+    check_winner,
+    is_draw,
 )
 
 
@@ -27,8 +20,19 @@ from game import (
 class SearchStats:
     """Instrumentation data collected during a search."""
     nodes_visited: int = 0
+    pruned_branches: int = 0
     elapsed_ms: float = 0.0
     algorithm: str = ""
+
+    @property
+    def pruning_efficiency(self) -> Optional[float]:
+        """Percentage of branches pruned (alpha-beta only); None for plain minimax."""
+        if self.algorithm != "alpha_beta":
+            return None
+        total = self.nodes_visited + self.pruned_branches
+        if total == 0:
+            return 0.0
+        return round(self.pruned_branches / total * 100, 2)
 
 
 @dataclass
@@ -92,7 +96,7 @@ def minimax_move(board: list, player: str) -> MoveResult:
     t0 = time.perf_counter()
 
     for move in moves:
-        counter[0] += 1
+        counter[0] += 1  # count root-level expansions
         child = apply_move(board, move, player)
         score = _minimax(child, not is_maximizing, counter)
 
@@ -107,7 +111,103 @@ def minimax_move(board: list, player: str) -> MoveResult:
 
     stats = SearchStats(
         nodes_visited=counter[0],
+        pruned_branches=0,
         elapsed_ms=round(elapsed, 4),
         algorithm="minimax",
+    )
+    return MoveResult(move=best_move, score=best_score, stats=stats)
+
+
+# ---------------------------------------------------------------------------
+# Alpha-Beta Pruning
+# ---------------------------------------------------------------------------
+
+def _alpha_beta(
+    board: list,
+    is_maximizing: bool,
+    alpha: int,
+    beta: int,
+    counter: list,
+    pruned: list,
+) -> int:
+    """
+    Recursive minimax with alpha-beta pruning.
+    counter and pruned are single-element mutable lists (node + prune counters).
+    """
+    counter[0] += 1
+
+    if is_terminal(board):
+        return terminal_score(board)
+
+    moves = get_legal_moves(board)
+
+    if is_maximizing:
+        value = -2
+        for move in moves:
+            child = apply_move(board, move, 'X')
+            score = _alpha_beta(child, False, alpha, beta, counter, pruned)
+            value = max(value, score)
+            alpha = max(alpha, value)
+            if beta <= alpha:
+                pruned[0] += len(moves) - moves.index(move) - 1
+                break
+        return value
+    else:
+        value = 2
+        for move in moves:
+            child = apply_move(board, move, 'O')
+            score = _alpha_beta(child, True, alpha, beta, counter, pruned)
+            value = min(value, score)
+            beta = min(beta, value)
+            if beta <= alpha:
+                pruned[0] += len(moves) - moves.index(move) - 1
+                break
+        return value
+
+
+def alpha_beta_move(board: list, player: str) -> MoveResult:
+    """
+    Choose the best move for `player` using Minimax with Alpha-Beta Pruning.
+
+    player: 'X' (maximizer) or 'O' (minimizer)
+    """
+    is_maximizing = (player == 'X')
+    moves = get_legal_moves(board)
+
+    if not moves:
+        raise ValueError("No legal moves available.")
+
+    counter = [0]
+    pruned = [0]
+    best_score = -2 if is_maximizing else 2
+    best_move = moves[0]
+    alpha = -2
+    beta = 2
+
+    t0 = time.perf_counter()
+
+    for move in moves:
+        counter[0] += 1
+        child = apply_move(board, move, player)
+        score = _alpha_beta(child, not is_maximizing, alpha, beta, counter, pruned)
+
+        if is_maximizing:
+            if score > best_score:
+                best_score = score
+                best_move = move
+            alpha = max(alpha, best_score)
+        else:
+            if score < best_score:
+                best_score = score
+                best_move = move
+            beta = min(beta, best_score)
+
+    elapsed = (time.perf_counter() - t0) * 1000
+
+    stats = SearchStats(
+        nodes_visited=counter[0],
+        pruned_branches=pruned[0],
+        elapsed_ms=round(elapsed, 4),
+        algorithm="alpha_beta",
     )
     return MoveResult(move=best_move, score=best_score, stats=stats)

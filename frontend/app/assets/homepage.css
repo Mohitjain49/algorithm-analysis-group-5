@@ -41,6 +41,13 @@
     color: var(--green-3)
 }
 
+.tictactoe-tile.tile-pointer {
+    cursor: pointer;
+}
+.tictactoe-tile.tile-pointer:hover {
+    background-color: black;
+}
+
 .tictactoe-tile:nth-child(3n) { border-right: none; }
 .tictactoe-tile:nth-child(3n - 2) { border-left: none; }
 .tictactoe-tile:nth-child(-n + 3) { border-top: none; }
