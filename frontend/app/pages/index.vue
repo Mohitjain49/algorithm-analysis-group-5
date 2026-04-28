@@ -15,10 +15,7 @@
         </div>
 
         <div class="tictactoe-box">
-            <div v-for="(tile, index) in appStore.tiles"
-                :class="['tictactoe-tile', ((tile == 2 || tile == 4) ? 'highlight' : '')]"
-                @click="appStore.onTileClick(index)">
-
+            <div v-for="(tile, index) in appStore.tiles" :class="getClassesForTile(tile)" @click="appStore.onTileClick(index)">
                 <FontAwesomeIcon v-if="(tile == 1 || tile == 2)" icon="fa-xmark" />
                 <FontAwesomeIcon v-if="(tile == 3 || tile == 4)" icon="fa-o" />
             </div>
@@ -40,4 +37,9 @@ const resultBox = computed(() => {
 
 useHead(getMeta());
 onMounted(async () => { await appStore.loadPython(); });
+
+/** This function returns all the classes for a tile. */
+function getClassesForTile(tile) {
+    return ['tictactoe-tile', ((tile == 2 || tile == 4) ? 'highlight' : ''), ((tile == 0 && appStore.gameStatus == 1) ? 'tile-pointer' : '')];
+}
 </script>

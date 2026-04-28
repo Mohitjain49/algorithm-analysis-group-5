@@ -11,6 +11,13 @@
         <button v-if="(appStore.gameStatus != 0)" class="tictactoe-app-option orange-light" @click="appStore.setGameStatus(0)" title="Reset Board." pulse-loop>
             <FontAwesomeIcon icon="fa-rotate-left" />
         </button>
+
+        <button v-if="(appStore.gameStatus == 0)" class="tictactoe-app-option" @click="appStore.setSettings(true)" title="Settings Menu" pulse-loop>
+            <FontAwesomeIcon icon="fa-gear" />
+        </button>
+        <div v-if="(appStore.gameStatus > 1)" class="tictactoe-app-option" title="Use (Ctrl + Shift + I) to see the nodes visited." pulse-loop>
+            <FontAwesomeIcon icon="fa-circle-nodes" />
+        </div>
         <button class="tictactoe-app-option orange" @click="reloadApp()" title="Reload App" pulse-loop>
             <FontAwesomeIcon icon="fa-rotate-right" :spin="reloadButtonClicked" />
         </button>
@@ -37,6 +44,22 @@
         </RouterLink>
     </div>
 </div>
+<div v-if="appStore.settingsOpen" class="webpage-cover tictactoe-settingsCover">
+    <div id="settings" class="tictactoe-versionBox animate__animated animate__bounceIn">
+        <div class="radio-input">
+            <input type="radio" value="minimax" v-model="appStore.tttAlgorithm" />
+            <label for="minimax"> Minimax Algorithm </label>
+        </div>
+        <div class="radio-input">
+            <input type="radio" value="alpha-beta" v-model="appStore.tttAlgorithm" />
+            <label for="alpha-beta"> Alpha-Beta Pruning </label>
+        </div>
+
+        <button class="tictactoe-versionBox-closeBtn" @click="appStore.setSettings(false)" title="Hide App Version">
+            <FontAwesomeIcon icon="fa-xmark" />
+        </button>
+    </div>
+</div>
 </template>
 
 <script setup>
@@ -48,7 +71,6 @@ const appBarRef = useTemplateRef('tictactoe-app-bar');
 usePulseLoopAnimation(appBarRef);
 
 const reloadButtonClicked = ref(false);
-const playButtonTitle = computed(() => { return ((appStore.gameStatus == 0) ? "Play A Game!" : "Stop Playing.") });
 const showVersionPopup = computed(() => { return (router.currentRoute.value.hash === "#version"); });
 
 /** This function reloads the web application. */
