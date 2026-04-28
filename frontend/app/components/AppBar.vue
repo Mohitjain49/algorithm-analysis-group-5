@@ -5,8 +5,11 @@
 <template>
 <nav id="tictactoe-app-bar" ref="tictactoe-app-bar">
     <div class="app-bar-section">
-        <button class="tictactoe-app-option" @click="appStore.setGameStatus((appStore.gameStatus == 0) ? 1 : 0)" :title="playButtonTitle" pulse-loop>
-            <FontAwesomeIcon :icon="((appStore.gameStatus == 0) ? 'fa-play' : 'fa-stop')" />
+        <button v-if="(appStore.gameStatus == 0)" class="tictactoe-app-option" @click="appStore.setGameStatus(1)" title="Play A Game!" pulse-loop>
+            <FontAwesomeIcon icon="fa-play" />
+        </button>
+        <button v-if="(appStore.gameStatus != 0)" class="tictactoe-app-option orange-light" @click="appStore.setGameStatus(0)" title="Reset Board." pulse-loop>
+            <FontAwesomeIcon icon="fa-rotate-left" />
         </button>
         <button class="tictactoe-app-option orange" @click="reloadApp()" title="Reload App" pulse-loop>
             <FontAwesomeIcon icon="fa-rotate-right" :spin="reloadButtonClicked" />

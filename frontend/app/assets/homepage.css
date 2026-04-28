@@ -2,6 +2,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
     position: static;
     height: 100%;
     width: 100%;
@@ -28,12 +29,16 @@
     align-items: center;
     justify-content: center;
 }
-.tictactoe-tile.highlight {
-    background-color: rgba(128, 128, 128, 0.75) !important;
-}
 .tictactoe-tile svg {
     color: white;
     font-size: 90px;
+}
+
+.tictactoe-tile.highlight {
+    background-color: rgba(128, 128, 128, 0.75) !important;
+}
+.tictactoe-tile.highlight svg {
+    color: var(--green-3)
 }
 
 .tictactoe-tile:nth-child(3n) { border-right: none; }
@@ -49,4 +54,34 @@
     .tictactoe-tile svg {
         font-size: 55px;
     }
+}
+
+.result-tab {
+    width: 280px;
+    height: 30px;
+    padding: 0px 10px;
+    border: 1px solid white;
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.8);
+    margin-bottom: 10px;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    font-size: 17px;
+    font-weight: bold;
+    color: white;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+}
+.result-tab button {
+    width: 22px;
+    height: 18px;
+    cursor: pointer;
+    color: var(--orange-1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 17px;
 }

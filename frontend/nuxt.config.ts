@@ -1,10 +1,11 @@
+import { fileURLToPath } from "node:url";
 import { addComponent } from "@nuxt/kit";
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
     compatibilityDate: '2025-07-15',
     devtools: { enabled: false },
-    app: { baseURL: "/" },
+    app: { baseURL: "/", },
     devServer: { port: 5075, host: "localhost" },
     ssr: false,
     modules: [
@@ -28,5 +29,7 @@ export default defineNuxtConfig({
             publicDir: '.output/public'
         }
     },
-    experimental: { payloadExtraction: 'client' }
+    vite: { optimizeDeps: { exclude: ['pyodide'] } },
+    experimental: { payloadExtraction: 'client' },
+    alias: { '@scripts': fileURLToPath(new URL('./scripts', import.meta.url)) }
 })

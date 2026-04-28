@@ -66,6 +66,25 @@ body {
     z-index: 1000;
     background-color: rgba(0, 0, 0, 0.85);
 }
+.center-flex-display {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loading-spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid #ccc;
+    border-top: 5px solid #4cafef;
+    border-radius: 50%;
+    animation: spin-loading 1s linear infinite;
+    margin: 0px auto;
+}
+@keyframes spin-loading {
+    0%   { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
 
 @media (max-width: 350px) {
     body { overflow-x: auto; }

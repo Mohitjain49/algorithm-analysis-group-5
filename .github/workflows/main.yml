@@ -1,9 +1,7 @@
 name: Build and Deploy Project to AWS.
 
 on:
-  push:
-    branches:
-      - main # Set this to your deployment branch
+  workflow_dispatch:
 
 permissions:
   contents: write

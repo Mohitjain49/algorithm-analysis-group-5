@@ -45,9 +45,13 @@
     color: white;
     border-color: white;
 }
-.tictactoe-app-option.orange {
+.tictactoe-app-option.orange-light {
     color: var(--orange-1);
     border-color: var(--orange-1);
+}
+.tictactoe-app-option.orange {
+    color: var(--orange-5);
+    border-color: var(--orange-5);
 }
 .tictactoe-app-option svg {
     height: 14px;
