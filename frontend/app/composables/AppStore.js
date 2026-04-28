@@ -7,6 +7,8 @@ import { loadPyodide } from 'pyodide';
 export const useAppStore = defineStore('app-store', () => {
     /** @type {Ref<Array<0 | 1 | 2 | 3 | 4>>} The array of tiles and their state. */
     const tiles = ref([0, 0, 0, 0, 0, 0, 0, 0, 0]);
+    const nodesVisited = ref([{ num: 0, turn: -1 }]);
+
     const gameStatus = ref(0);
     const gameState = ref(null);
 
@@ -79,6 +81,7 @@ export const useAppStore = defineStore('app-store', () => {
         
         pyodideReady.value = true;
         gameState.value = JSON.parse(pyodide.value.runPython(`game_controller.get_state()`));
+        nodesVisited.value = [];
     }
 
     /**
@@ -87,18 +90,22 @@ export const useAppStore = defineStore('app-store', () => {
      */
     function onTileClick(index) {
         if(gameStatus.value != 1 || !pyodideReady.value) { return; }
-
-        console.log(tttAlgorithm.value)
         const fulfillInputFunc = (checkMinimax() ? `game_controller.fulfill_input(${index})` : `game_controller.fulfill_alpha_input(${index})`)
         const result = pyodide.value.runPython(fulfillInputFunc);
 
         gameState.value = JSON.parse(result);
-        if(import.meta.env.DEV) { console.log(gameState.value) }
+        if(import.meta.env.DEV) { console.log(gameState.value); }
 
         if(!gameState.value.history) { return; }
-        for(let i = 0; i < gameState.value.history.length; i++) {
+        const historyLength = gameState.value.history.length;
+
+        for(let i = 0; i < historyLength; i++) {
             const obj = gameState.value.history[i];
             setTile(obj.cell_index, obj.player === "X" ? 1 : 3);
+
+            if(obj.player === "O" && (-1 == nodesVisited.value.findIndex(item => item.turn == obj.move_number))) {
+                nodesVisited.value.push({ num: obj.stats.nodes_visited, turn: obj.move_number });
+            }
         }
 
         if(gameState.value.board.winner != null) {
@@ -107,11 +114,14 @@ export const useAppStore = defineStore('app-store', () => {
 
             for(let j = 0; j < winningTiles.length; j++) {
                 const tileNum = winningTiles[j]
-                setTile(tileNum, tiles.value[tileNum] + 1)
+                setTile(tileNum, tiles.value[tileNum] + 1);
             }
+
+            console.log(nodesVisited.value);
             if(import.meta.env.DEV) { console.log(winningTiles); }
-        } else if(gameState.value.history.length == 9) {
+        } else if(historyLength == 9) {
             setGameStatus(2);
+            console.log(nodesVisited.value);
         }
     }
 
@@ -121,7 +131,9 @@ export const useAppStore = defineStore('app-store', () => {
         if(!pyodideReady.value) { return; }
         pyodide.value.runPython(`game_controller.restart()`);
         pyodide.value.runPython(`game_controller.alpha_restart()`);
+
         tiles.value = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+        nodesVisited.value = [];
     }
 
     /**

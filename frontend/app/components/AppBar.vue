@@ -15,6 +15,9 @@
         <button v-if="(appStore.gameStatus == 0)" class="tictactoe-app-option" @click="appStore.setSettings(true)" title="Settings Menu" pulse-loop>
             <FontAwesomeIcon icon="fa-gear" />
         </button>
+        <div v-if="(appStore.gameStatus > 1)" class="tictactoe-app-option" title="Use (Ctrl + Shift + I) to see the nodes visited." pulse-loop>
+            <FontAwesomeIcon icon="fa-circle-nodes" />
+        </div>
         <button class="tictactoe-app-option orange" @click="reloadApp()" title="Reload App" pulse-loop>
             <FontAwesomeIcon icon="fa-rotate-right" :spin="reloadButtonClicked" />
         </button>
@@ -68,7 +71,6 @@ const appBarRef = useTemplateRef('tictactoe-app-bar');
 usePulseLoopAnimation(appBarRef);
 
 const reloadButtonClicked = ref(false);
-const playButtonTitle = computed(() => { return ((appStore.gameStatus == 0) ? "Play A Game!" : "Stop Playing.") });
 const showVersionPopup = computed(() => { return (router.currentRoute.value.hash === "#version"); });
 
 /** This function reloads the web application. */
