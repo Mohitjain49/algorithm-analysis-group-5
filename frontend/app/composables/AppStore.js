@@ -16,7 +16,7 @@ export const useAppStore = defineStore('app-store', () => {
 
     /** This function loads all the python scripts into the app. */
     async function loadPython() {
-        pyodide.value = await loadPyodide();
+        pyodide.value = await loadPyodide({ indexURL: "https://cdn.jsdelivr.net/pyodide/v0.29.3/full/" });
         const files = [
             { name: "game.py", code: game_py },
             { name: "algorithms.py", code: algorithms_py },
