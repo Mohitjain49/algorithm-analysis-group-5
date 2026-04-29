@@ -39,12 +39,3 @@ jobs:
           BUILD_OUTPUT: ${{ '.output/public' }}
         run: npm run deploy
 
-    #   - name: Deploy Bundles To GitHub Pages
-    #     uses: JamesIves/github-pages-deploy-action@v4
-    #     with:
-    #       branch: gh-pages
-    #       folder: bundle-visualizer
-    #       clean: true
-    #       clean-exclude: |
-    #         README.md
-

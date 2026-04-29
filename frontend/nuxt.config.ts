@@ -33,4 +33,4 @@ export default defineNuxtConfig({
     vite: { optimizeDeps: { exclude: ['pyodide'] } },
     experimental: { payloadExtraction: 'client' },
     alias: { '@scripts': fileURLToPath(new URL('./scripts', import.meta.url)) }
-})
+});

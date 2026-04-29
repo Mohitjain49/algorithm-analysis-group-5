@@ -37,13 +37,16 @@ body {
     min-width: 350px;
     margin: 0px;
     padding: 0px;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 .tictactoe-ui {
     position: relative;
     top: 0px;
     left: 0px;
-    height: 100vh;
+    height: fit-content;
+    min-height: calc(100vh - 50px);
+    padding-top: 50px;
     width: 100%;
     min-width: 350px;
     display: flex;

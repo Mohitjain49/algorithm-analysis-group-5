@@ -105,15 +105,6 @@ async function main() {
 
             await writeFile("./public/version.json", JSON.stringify({ version: newVersion }), 'utf8');
             versionJsonSpinner.succeed("Updated version.json!!");
-
-            // Updates the vite.config.js file. COMMENTED OUT FOR THE TIME BEING!
-            // const viteConfigSpinner = createSpinner("Updating pwa.config.ts...");
-            // const content = await readFile("./pwa.config.ts", 'utf8');
-            // const updatedContent = content.replace(/v\d+\.\d+\.\d+-\$\{Date\.now\(\)\}/, `v${newVersion}-\${Date.now()}`);
-
-            // await writeFile("./pwa.config.ts", updatedContent, 'utf8');
-            // viteConfigSpinner.succeed("Updated PWA Config File!!");
-            // console.log("\n\n");
         } else {
             // A message to show if the user declined.
             console.log("🛑 Will Not Update Version Number.\n\n");
